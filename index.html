@@ -3,20 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Real-time Chat</title>
+    <title>JSON POST Receiver</title>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-messages" id="chat-messages">
-            <!-- Messages will appear here -->
-        </div>
-        <div class="chat-input">
-            <input type="text" id="message-input" placeholder="Type a message">
-            <button id="send-button">Send</button>
+    <div>
+        <h1>JSON POST Receiver</h1>
+        <form id="json-form">
+            <textarea id="json-input" rows="10" cols="50" placeholder="Enter JSON data"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="json-output">
+            <!-- Received JSON data will be displayed here -->
         </div>
     </div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('json-form');
+            const jsonInput = document.getElementById('json-input');
+            const jsonOutput = document.getElementById('json-output');
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const jsonData = jsonInput.value;
+
+                try {
+                    const response = await fetch('/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: jsonData
+                    });
+
+                    const responseData = await response.json();
+                    jsonOutput.innerHTML = `<pre>${JSON.stringify(responseData, null, 2)}</pre>`;
+                } catch (error) {
+                    console.error(error);
+                    jsonOutput.textContent = 'An error occurred.';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
