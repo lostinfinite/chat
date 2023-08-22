@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Simple Chat App</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Real-time Chat</title>
 </head>
 <body>
     <div class="chat-container">
-        <div class="chat-box" id="chat-box">
-            <!-- Chat messages will appear here -->
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will appear here -->
         </div>
-        <div class="input-container">
-            <input type="text" id="message-input" placeholder="Type your message...">
+        <div class="chat-input">
+            <input type="text" id="message-input" placeholder="Type a message">
             <button id="send-button">Send</button>
         </div>
     </div>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
